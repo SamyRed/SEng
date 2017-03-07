@@ -4,11 +4,10 @@ if (!defined ('seng')) {
     echo '<div id="alert alertDanger"><b>Ошибка!</b> У Вас нет доступа к данному файлу. Обратитесь к администратору.</div>';
     die ();
 }
-if (autorized ()) {
+if (autorized () || !isset ($_GET['s']) || empty ($_GET['s'])) {
     header ('Location: /');
     die ();
 }
-
 if ($_GET['s'] == 'false') {
     echo '<div class="alert alertSuccess"><b>Вы успешно зарегистрированы!</b> Осталось только активировать Ваш E-mail. Для этого перейдите по ссылке в письме, которое мы отправили на ваш адрес электорнной почты.</div>';
 } else {
@@ -29,7 +28,7 @@ if ($_GET['s'] == 'false') {
                             $h = $_GET['h'];
                             $hash = md5 ($res['passHash']);
                             if ($hash == $h) {
-                                $q = $db->query ("UPDATE `users` SET `emailCheck` = 1, `lastDate` = '".time ()."', `lastIP` = '".$_SERVER['REMOTE_ADDR']."'");
+                                $q = $db->query ("UPDATE `users` SET `emailCheck` = 1 WHERE `username` = '$username'");
                                 if ($q) {
                                     echo '<div class="alert alertSuccess"><b>Поздравляем!</b> Регистрация завершена, и теперь Вы полноценный участник нашего сообщества.</div>';
                                     $_SESSION['id'] = $res['id'];
@@ -53,5 +52,5 @@ if ($_GET['s'] == 'false') {
             $alerts[] = '<div class="alert alertDanger">DB error!</div>';
         }
     }
-    echo alertsShow ();
 }
+echo alertsShow ();

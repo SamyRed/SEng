@@ -11,7 +11,7 @@ if (isset ($_POST['regSubmit'])) {
     } else {
         $username = $db->real_escape_string ($_POST['regUname']);
         if (strlen ($username) < 3) {
-            $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> имя пользователя не должно быть короче 3-х символов.</div>';
+            $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Имя пользователя не должно быть короче 3-х символов.</div>';
         }
         if (strlen ($username) > 30) {
             $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Имя пользователя не может быть длиннее 30-ти символов</div>';
@@ -25,7 +25,7 @@ if (isset ($_POST['regSubmit'])) {
                 $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Это имя уже занято. Придумайте другое.</div>';
             }
         } else {
-            $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Невозможно сделать выборку логина из базы данных. Обратитесь к администратору.</div>';
+            $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Не удалось выполнить запрос к базе данных. Обратитесь к администратору.</div>';
         }
     }
     if (empty ($_POST['regEmail'])) {
@@ -41,7 +41,7 @@ if (isset ($_POST['regSubmit'])) {
                 $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Этот E-mail уже занят.</div>';
             }
         } else {
-            $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Невозможно сделать выборку E-mail из базы данных. Обратитесь к администратору.</div>';
+            $alerts[] = '<div class="alert alertDanger"><b>Ошибка регистрации!</b> Не удалось выполнить запрос к базе данных. Обратитесь к администратору.</div>';
         }
     }
     if (empty ($_POST['regPass'])) {
@@ -75,27 +75,27 @@ if (isset ($_POST['regSubmit'])) {
         die ();
     } else {
         $passHash = password_hash($pass, PASSWORD_DEFAULT);
-        $q = $db->query ("INSERT INTO `users` VALUES (NULL, '$username', '$passHash', '$email', 0, ".time ().", '".$_SERVER['REMOTE_ADDR']."', ".time ().", '".$_SERVER['REMOTE_ADDR']."', '5')") or die ($db->error);
+        $q = $db->query ("INSERT INTO `users` VALUES (NULL, '$username', '$passHash', '$email', 0, ".time ().", '".$_SERVER['REMOTE_ADDR']."', ".time ().", '".$_SERVER['REMOTE_ADDR']."', '5')");
         $userId = $db->insert_id;
-        $q = $db->query ("INSERT INTO `money` VALUES (NULL, '$username', '0')") or die ($db->error);
-        $q = $db->query ("INSERT INTO `coins` VALUES (NULL, '$username', '0')") or die ($db->error);
+        $q = $db->query ("INSERT INTO `money` VALUES (NULL, '$username', '0')");
+        $q = $db->query ("INSERT INTO `coins` VALUES (NULL, '$username', '0')");
         $servers = servers ();
         while ($item = $servers->fetch_assoc ()) {
-            $q = $db->query ("INSERT INTO `coins".$item['id']."` VALUES (NULL, '$username', '0', '0')") or die ($db->error);
-            $q = $db->query ("INSERT INTO `permissions".$item['id']."` (`name`, `type`, `permission`, `world`, `value`) VALUES ('".uuid ('username', $username)."', '1', 'name', '', '$username')") or die ($db->error);
+            $q = $db->query ("INSERT INTO `".$item['id']."coins` VALUES (NULL, '$username', '0', '0')");
+            $q = $db->query ("INSERT INTO `".$item['id']."permissions` (`name`, `type`, `permission`, `world`, `value`) VALUES ('".uuid ('username', $username)."', '1', 'name', '', '$username')");
         }
         $q = $db->query ("SELECT `passHash` FROM `users` WHERE `id` = '$userId'");
         $user = $q->fetch_assoc ();
 $message = "
 Здравствуйте, $username!
 
-Если Вам пришло это письмо - значит вы зарегистрировались на сайте ".SITETITLE.". Если Вы этого не делали - проигнорируйте, пожалуйста это письмо.
+Если Вам пришло это письмо - значит вы зарегистрировались на сайте ".$config['siteTitle'].". Если Вы этого не делали - проигнорируйте, пожалуйста это письмо.
 
-Для завершения регистрации перейдите по ссылке: ".SITEURL."?page=emailVerify&s=true&u=".$username."&h=".md5 ($user['passHash'])."
+Для завершения регистрации перейдите по ссылке: ".$_SERVER['SERVER_NAME']."/?page=emailVerify&s=true&u=".$username."&h=".md5 ($user['passHash'])."
 
 Благодарим за регистрацию! 
 
-Администрания сайта ".SITETITLE."
+Администрания сайта ".$config['siteTitle']."
 ";
         mail ($email, 'support@seng.kl.com.ua', $message);
         header ('Location: /?page=emailVerify&s=false');
