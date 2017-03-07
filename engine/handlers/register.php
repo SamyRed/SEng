@@ -102,6 +102,8 @@ $message = "
         die ();
     }
 } else {
-    die ('Request is empty!');
+    $_SESSION['alerts'][] = '<div class="alert alertDanger"><b>Ошибка!</b> Не найдены параметры запроса.</div>';
+    header ('Location: /?page=emailVerify&s=false');
+    die ();
 }
 ?>

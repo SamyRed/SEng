@@ -1,14 +1,11 @@
 <?php
 if (!defined ('seng')) {
     echo '<link rel="stylesheet" href="../styles/main.css">';
-    echo '<div id="alert alertDanger"><b>Ошибка!</b> У Вас нет доступа к данному файлу. Обратитесь к администратору.</div>';
+    echo '<div class="alert alertDanger"><b>Ошибка!</b> У Вас нет доступа к данному файлу. Обратитесь к администратору.</div>';
     die ();
 }
-if (!empty ($_POST)) {
-    var_dump ($_POST);
-}
 if (isset ($_POST['pcDonateSubm'])) {
-    
+    $alerts[] = '<div class="alert alertDanger"><b>Ошибка!</b> Эта функция пока не реализована.</div>';
 }
 if (isset ($_POST['pcExchangeSubm'])) {
     if ($money = intval ($_POST['pcExchangeCount'])) {
