@@ -1,0 +1,43 @@
+CREATE TABLE `1permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `type` tinyint(1) NOT NULL,
+  `permission` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  `world` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `value` mediumtext CHARACTER SET utf8mb4 NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user` (`name`,`type`),
+  KEY `world` (`world`,`name`,`type`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+INSERT INTO `{permissions}` VALUES (1, '4ipolinoMiner', 1, 'name', '', '4ipolinoMiner');
+
+CREATE TABLE `1permissions_entity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `type` tinyint(1) NOT NULL,
+  `default` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`,`type`),
+  KEY `default` (`default`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+INSERT INTO `{permissions_entity}` VALUES (1, 'admin', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (2, 'moder', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (3, 'oldModer', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (4, 'chatModer', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (5, 'player', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (6, 'newbie', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (7, 'vip', 0, 0);
+INSERT INTO `{permissions_entity}` VALUES (8, 'ultimate', 0, 0);
+
+CREATE TABLE `1permissions_inheritance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `child` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `parent` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `type` tinyint(1) NOT NULL,
+  `world` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `child` (`child`,`parent`,`type`,`world`),
+  KEY `child_2` (`child`,`type`),
+  KEY `parent` (`parent`,`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+

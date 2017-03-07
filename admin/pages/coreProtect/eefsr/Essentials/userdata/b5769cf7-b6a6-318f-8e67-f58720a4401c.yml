@@ -1,0 +1,22 @@
+lastAccountName: 4ipolinoMiner
+timestamps:
+  login: 1488235190372
+  logout: 1488236581856
+  lastteleport: 1488235388615
+ipAddress: 127.0.0.1
+lastlocation:
+  world: DIM-1
+  x: 3.107528966771346
+  y: 58.240559563720836
+  z: 3.1052294325236462
+  yaw: -221.09999
+  pitch: 15.15
+logoutlocation:
+  world: world
+  x: 42.80856849100848
+  y: 72.36445605997292
+  z: 33.67852215110682
+  yaw: -70.04996
+  pitch: 35.84999
+godmode: true
+afk: false

@@ -1,0 +1,29 @@
+multiserver:
+  use-netevents: true
+permissions:
+  backend: sql
+  backends:
+    sql:
+      driver: mysql
+      uri: mysql://mysql.zzz.com.ua/samycraft
+      user: Samy
+      password: qzemnljkz1172
+      type: sql
+      aliases:
+        permissions: 1permissions
+        permissions_inheritance: 1permissions_inheritance
+        permissions_entity: 1permissions_entity
+  superperms:
+    parent-nodes: true
+    enable: true
+    strict-mode: false
+  createUserRecords: false
+  allowOps: true
+  debug: false
+  basedir: plugins/PermissionsEx
+  log-players: true
+  user-add-groups-last: false
+  informplayers:
+    changes: false
+updater: true
+alwaysUpdate: false
