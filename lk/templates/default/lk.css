@@ -1,0 +1,161 @@
+
+#lk {
+	background: #FCFCFC;
+	border: 2px solid #EAEAEA;
+	margin: 0 auto;
+	padding: 10px;
+	width: 650px;
+	font-family: tahoma;
+	font-size: 14px;
+}
+
+.lk-block {
+	background: #FCFCFC;
+	border: 2px solid #EAEAEA;
+	width: 290px;
+	padding: 8px;
+	margin-top: 5px;
+}
+
+.lk-block-long {
+	background: #FCFCFC;
+	border: 2px solid #EAEAEA;
+	padding: 10px;
+}
+
+.lk-block-header {
+	font-weight: bold;
+	font-size: 15px;
+	margin: 5 0 5 0;
+}
+
+.lk-block-text {
+	margin: 3px 0 3px 0;
+}
+
+.lk-miniblock {
+	background: #F7F7F7;
+	border: 2px solid #F4F4F4;
+	padding: 7px 5px;
+	margin: 3px 0 3px 0;
+	font-size: 14px;
+}
+
+.lk-h3 {
+	font-weight: bold;
+	font-size: 15;
+}
+
+a {
+	cursor: pointer;
+	color: #5BA8D4;
+}
+
+a:hover {
+	color: #73B5DB;
+}
+
+input {
+	outline: 0;
+}
+
+.alert {
+	background: #FCFCFC;
+	border: 2px solid #EAEAEA;
+	width: 650px;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	padding: 10px;
+	font-family: system;
+}
+
+.button {
+	background: #F9F9F9;
+	border: 2px solid #F1F1F1;
+	font-family: tahoma;
+	font-size: 15px;
+	padding: 7px;
+	outline: 0;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	-webkit-transition: background 0.1s linear;
+	-moz-transition: background 0.1s linear;
+	-o-transition: background 0.1s linear;
+}
+
+.button:hover {
+	background: #F1F1F1;
+}
+
+.button:active {
+	background: #fff;
+}
+
+.input-text {
+	padding: 7px;
+	border: 2px solid #F1F1F1;
+	font-size: 14px;
+}
+
+.input-text:focus {
+	border: 2px solid #8AB7DE;
+}
+
+.input-text-prefix-text {
+	width: 120px;
+	height: 35px;
+}
+
+.output-prefix {
+	width: 190px;
+	float: left;
+}
+
+.input-number {
+	width: 70px;
+}
+
+.select-prefix {
+	height: 30px;
+	font-size: 15px;
+}
+
+.search_player-info {
+	width: 350px;
+}
+
+.log-bg {
+	background: #fff;
+	border: 1px solid #F2F2F2;
+	border-radius: 5;
+	padding: 10;
+}
+
+.checkbox {
+	border: 1px solid #A8A8A8;
+	padding: 5px;
+}
+
+.checkbox:hover {
+	border: 1px solid #BBBBBB;
+}
+
+.checkbox-active {
+	background: #F2F2F2 url('img/checkbox-active.png') no-repeat;
+	background-size: 10px;
+}
+
+.f_right {
+	float: right;
+}
+
+.f_left {
+	float: left;
+}
+
+.f_clear {
+	clear: both;
+}
+
+.display_none {
+	display: none;
+}

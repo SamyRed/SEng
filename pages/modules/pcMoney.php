@@ -4,8 +4,30 @@ if (!defined ('seng')) {
     echo '<div class="alert alertDanger"><b>Ошибка!</b> У Вас нет доступа к данному файлу. Обратитесь к администратору.</div>';
     die ();
 }
-if (isset ($_POST['pcDonateSubm'])) {
-    $alerts[] = '<div class="alert alertDanger"><b>Ошибка!</b> Эта функция пока не реализована.</div>';
+        $q = $db->query ("SELECT `value` FROM `ikLog`");
+        while ($item = $q->fetch_assoc ()) {
+            var_dump (unserialize ($item['value']));
+            echo '<br>';
+        }
+if (isset ($_GET['ik'])) {
+    $ikPage = $_GET['ik'];
+    if ($ikPage == 'success') {
+        var_dump ($_POST);
+        $_SESSION['alerts'][] = '<div class="alert alertSuccess"><b>Выполнено!</b> Платёж проведён успешно.</div>';
+        header ('Location: http://seng.kl.com.ua/?page=pc&mode=pcMoney');
+        die ();
+    }
+    if ($ikPage == 'unSuccess') {
+        $_SESSION['alerts'][] = '<div class="alert alertDanger"><b>Ошибка!</b> Платёж не был произведён. Обратитесь к администратору.</div>';
+        header ('Location: http://seng.kl.com.ua/?page=pc&mode=pcMoney');
+        die ();
+    }
+    if ($ikPage == 'waitPay') {
+        var_dump ($_POST);
+    }
+    if ($ikPage == 'pay') {
+        $q = $db->query ("INSERT INTO `ikLog` VALUES (NULL, '".serialize ($_POST)."')");
+    }
 }
 if (isset ($_POST['pcExchangeSubm'])) {
     if ($money = intval ($_POST['pcExchangeCount'])) {
@@ -89,12 +111,14 @@ if (autorized ()) {
 <div class="pgBlockBody">
     <center>
         <h4><?=money ('id', $_SESSION['id'])['balance']?> руб. / <?=coins ('username', user ('username'))['balance']?> м.</h4>
-        <form action="" method="post">
-            <select name="pcDonateSystem" class="inputSelect inline">
-                <option value="interkassa">Interkassa</option>
-            </select>
-            <input type="number" min="0" max="9999999" value="100" name="pcDonateCount" class="inputText inline">
-            <input type="submit" name="pcDonateSubm" value="Пополнить" class="button inline">
+        <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
+            <input type="hidden" name="ik_co_id" value="58bfabbd3b1eaffa4c8b4569">
+            <input type="hidden" name="ik_pm_no" value="ID_4233" />
+            <input type="number" min="0" max="999999" value="100" name="ik_am" class="inputText inline"> р.
+            <input type="hidden" name="ik_cur" value="RUB">
+            <input type="hidden" name="ik_desc" value="Пополнение счёта">
+            <input type="submit" value="Пополнить" class="button inline">
+        </form>
         </form>
     </center>
 </div>
